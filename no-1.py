@@ -25,7 +25,7 @@ class Quicksort:
         self.quicksort(0, self.amount)
         print (self.data)
 
-data = [19,62,0,97,44,8,99,25,74,56,62,84,4,70,74,6,33,82,7,9]
+data = [19,62,0,97,44,8,99,25,74,68,56,62,84,4,70,74,6,33,82,7,9]
 quick = Quicksort(data)
 
 quick.user_quick_out()
