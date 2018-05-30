@@ -22,8 +22,6 @@ class Quicksort:
             if (self.data[end] < self.data[end-1]):
                 self.data[end], self.data[end-1] = self.data[end-1], self.data[end]
                 self.insert(start, end-1)
-            # else:
-            #     self.insert(start, end-1)
 
     def insertion(self, start, end):
         if self.indeks <= (end - start):
