@@ -28,7 +28,7 @@ def move_all(n, beg, mid, end):
         move_all(1, beg, mid, end)
         move_all(n-1, mid, beg, end)
 
-a = [9,8,7,6,5,4,3,2,1]
+a = [10,9,8,7,6,5,4,3,2,1]
 b = []
 c = []
 
