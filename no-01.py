@@ -1,9 +1,16 @@
 import time
+import random
 
 class Sort:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, amount):
         self.count = 0
+        self.data = []
+        self.data_assign(amount)
+    
+    def data_assign(self, amount):
+        if amount > 0:
+            self.data_assign(amount-1)
+        self.data.append(random.randint(1, 99))
 
     def partition(self, start, end):
         pivot = start
@@ -38,17 +45,22 @@ class Sort:
         self.waktu = time.time()
         self.quick(0, len(self.data) - 1)
         self.waktu = time.time() - self.waktu
-        return self.data
 
     def efective_time(self):
-        return ("%16.6f"%(self.waktu))
+        return ("{0:.4}".format(self.waktu*1000))
 
     def efective_count(self):
         return self.count
 
-a = [1,3,9,10,44,4,5,7,89,14,10]
+jumlah = int(input("Masukan jumlah data = "))
 
-b = Sort(a)
+quick = []
+total = 0
 
+for i in range(10):
+    quick.append(Sort(jumlah))
+    quick[i].quicksort()
+    total += float(quick[i].efective_time())
 
-print (a, b.quicksort(), b.efective_time(), b.efective_count())
+total = total/jumlah
+print ("Waktu rata-rata dari {0:} data adalah {1:.4}ms".format(jumlah, total))
