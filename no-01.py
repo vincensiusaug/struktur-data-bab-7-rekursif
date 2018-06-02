@@ -1,8 +1,9 @@
-class Quicksort:
-    def __init__(self, Data):
-        self.data = Data
-        self.amount = len(self.data) - 1
-        
+import time
+
+class Sort:
+    def __init__(self, data):
+        self.data = data
+
     def partition(self, start, end):
         pivot = start
 
@@ -15,17 +16,24 @@ class Quicksort:
 
         return pivot
 
-    def quicksort(self, start, end):
+    def quick(self, start, end):
         if start < end:
             pivot = self.partition(start, end)
-            self.quicksort(start, pivot-1)
-            self.quicksort(pivot+1, end)
-    
-    def user_quick_out(self):
-        self.quicksort(0, self.amount)
-        print (self.data)
+            self.quick(start, pivot-1)
+            self.quick(pivot+1, end)
 
-data = [19,62,0,97,44,8,99,25,74,68,56,62,84,4,70,74,6,33,82,7,9]
-quick = Quicksort(data)
+    def quicksort(self):
+        self.waktu = time.time()
+        self.quick(0, len(self.data) - 1)
+        self.waktu = time.time() - self.waktu
+        return self.data
 
-quick.user_quick_out()
+    def efective(self):
+        return ("%16.6f"%(self.waktu))
+
+a = [1,3,9,10,44,4,5,7,89]
+
+b = Sort(a)
+
+
+print (a, b.quicksort(), b.efective())
