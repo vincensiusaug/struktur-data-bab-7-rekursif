@@ -3,14 +3,26 @@ import time
 class Sort:
     def __init__(self, data):
         self.data = data
+        self.count = 0
 
     def partition(self, start, end):
         pivot = start
 
-        for i in range(start, end):
-            if self.data[i] < self.data[end]:
-                self.data[i], self.data[pivot] = self.data[pivot], self.data[i]
-                pivot += 1
+        def comparator(i, end, pivot):
+            if i < end:
+                self.count += 1
+                if self.data[i] < self.data[end]:
+                    self.data[i], self.data[pivot] = self.data[pivot], self.data[i]
+                    pivot += 1
+                pivot = comparator(i+1, end, pivot)
+            return pivot
+
+        pivot = comparator(start, end, pivot)
+
+        # for i in range(start, end):
+        #     if self.data[i] < self.data[end]:
+        #         self.data[i], self.data[pivot] = self.data[pivot], self.data[i]
+        #         pivot += 1
         
         self.data[pivot], self.data[end] = self.data[end], self.data[pivot]
 
@@ -28,12 +40,15 @@ class Sort:
         self.waktu = time.time() - self.waktu
         return self.data
 
-    def efective(self):
+    def efective_time(self):
         return ("%16.6f"%(self.waktu))
 
-a = [1,3,9,10,44,4,5,7,89]
+    def efective_count(self):
+        return self.count
+
+a = [1,3,9,10,44,4,5,7,89,14,10]
 
 b = Sort(a)
 
 
-print (a, b.quicksort(), b.efective())
+print (a, b.quicksort(), b.efective_time(), b.efective_count())
