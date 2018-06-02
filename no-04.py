@@ -1,39 +1,57 @@
-def out():
-    for i in range (count-1,-1,-1):
-        try:
-            print ("{0:^3}".format(a[i]),end="")
-        except IndexError:
-            print ("{0:^3}".format("-"),end="")
+class Hanoi:
+    def __init__(self, n):
+        self.number = n
+        self.arrA = list(range(n,0,-1))
+        self.arrB = []
+        self.arrC = []
+        self.out()
 
-        try:
-            print ("{0:^3}".format(b[i]),end="")
-        except IndexError:
-            print ("{0:^3}".format("-"),end="")
+    def out(self):
+        for i in range (self.number-1,-1,-1):
+            try:
+                print ("{0:^3}|".format(self.arrA[i]),end="")
+            except IndexError:
+                print ("{0:^3}|".format("-"),end="")
 
-        try:
-            print ("{0:^3}".format(c[i]))
-        except IndexError:
-            print ("{0:^3}".format("-"))
-    print ("{0:=<9}".format(""))
+            try:
+                print ("{0:^3}|".format(self.arrB[i]),end="")
+            except IndexError:
+                print ("{0:^3}|".format("-"),end="")
 
-def move(beg, end):
-    end.append(beg.pop())
-    out()
+            try:
+                print ("{0:^3}".format(self.arrC[i]))
+            except IndexError:
+                print ("{0:^3}".format("-"))
 
-def move_all(n, beg, mid, end):
-    if n==1:
-        move(beg, end)
-    else:
-        move_all(n-1, beg, end, mid)
-        move_all(1, beg, mid, end)
-        move_all(n-1, mid, beg, end)
+        print ("{0:=<11}".format(""))
 
-a = [10,9,8,7,6,5,4,3,2,1]
-b = []
-c = []
+    def moveNumber(self, beg, end):
+        number = beg.pop()
+        end.append(number)
+        if beg == self.arrA:
+            a = 1
+        print ()
+        print ("{0:} - {1:} -> {2:}".format(number, beg, end))
+        self.out()
 
-count = len(a)
+    def move(self, n = None, beg = None, mid = None, end = None):
+        move = self.move
 
-out()
+        if n == None:
+            n = self.number
+        if beg == None:
+            beg = self.arrA
+        if mid == None:
+            mid = self.arrB
+        if end == None:
+            end = self.arrC
 
-move_all(count, a, b, c)
+        if n==1:
+            self.moveNumber(beg, end)
+        else:
+            move(n-1, beg, end, mid)
+            move(1, beg, mid, end)
+            move(n-1, mid, beg, end)
+
+tower = Hanoi(3)
+tower.move()
