@@ -81,7 +81,7 @@ class Maze:
 
 
 
-maze = Maze("a")
+maze = Maze("maze_map")
 maze.maze_out()
 maze.maze_solve()
 maze.maze_out()
