@@ -1,5 +1,3 @@
-# Struktur data bab-7 rekursif
-Tugas struktur data  
+# Struktur Data Bab-7 Recursive
   
-kalo mau bantu tinggal pull request  
-ada masalah tulis di issues
+Download = https://github.com/vincensiusaug/struktur-data-bab-7-rekursif/archive/master.zip
