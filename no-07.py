@@ -1,77 +1,90 @@
-def make(size):
-    board = [[0 for y in range(size)] for x in range(size)]
-    for x in range(size):
+class Queens:
+    board = []
+    queen = "Q"
+    attack = "*"
+    empty = " "
+    corner = " "
+
+    def __init__(self, size = 8):
+        self.size = size
+        self.make()
+
+    def make(self):
+        self.board = [[self.empty for y in range(self.size)] for x in range(self.size)]
+
+    def show(self):
+        print ("{0:^4}".format(self.corner), end = "")
+        for i in range(self.size):
+            print ("{0:^3}".format(i), end = "")
+        print ("{0:^4}".format(self.corner))
+
+        for y in range(self.size):
+            print ("{0:>4}".format(y), end = "")
+            for x in range(self.size):
+                print ("{0:^3}".format(self.board[x][y]), end = "")
+
+            print ("{0:<4}".format(y))
+
+        print ("{0:^4}".format(self.corner), end = "")
+        for i in range(self.size):
+            print ("{0:^3}".format(i), end = "")
+        print ("{0:^4}".format(self.corner))
+
+    def place(self, x, y):
+        board = self.board
+        board[x][y] = self.queen
+
+        for i in range(self.size):
+            if i != y:
+                board[x][i] = self.attack
+        for i in range(self.size):
+            if i != x:
+                board[i][y] = self.attack
+
+        def lt(x, y):
+            x -= 1
+            y -= 1
+            if x >= 0 and y >= 0 and x < self.size and y < self.size:
+                board[x][y] = self.attack
+                lt(x, y)
+        def rt(x, y):
+            x += 1
+            y -= 1
+            if x >= 0 and y >= 0 and x < self.size and y < self.size:
+                board[x][y] = self.attack
+                rt(x, y)
+        def lb(x, y):
+            x -= 1
+            y += 1
+            if x >= 0 and y >= 0 and x < self.size and y < self.size:
+                board[x][y] = self.attack
+                lb(x, y)
+        def rb(x, y):
+            x += 1
+            y += 1
+            if x >= 0 and y >= 0 and x < self.size and y < self.size:
+                board[x][y] = self.attack
+                rb(x, y)
+        
+        lt(x, y)
+        rt(x, y)
+        lb(x, y)
+        rb(x, y)
+
+    def attacked(self, y, x):
+        if self.board[x][y] == self.attack:
+            return True
+        else:
+            return False
+
+    def safe(self, y, x):
+        size = self.size
+        board = self.board
         for y in range(size):
-            board[x][y] = "-"
-    return board
-
-def safe(board, x, y):
-    if board[x][y] not in ("*","Q"):
-        return True
-    False
-
-def diagonal1(board, x, y, size):
-    if x >= 0 and y >= 0 and x < size and y < size:
-        if board[x][y] != "Q":
-            board[x][y] = "*"
-        board = diagonal1(board, x+1, y+1, size)
-    return board
-
-def diagonal2(board, x, y, size):
-    if x >= 0 and y >= 0 and x < size and y < size:
-        if board[x][y] != "Q":
-            board[x][y] = "*"
-        board = diagonal2(board, x-1, y+1, size)
-    return board
-
-def diagonal3(board, x, y, size):
-    if x >= 0 and y >= 0 and x < size and y < size:
-        if board[x][y] != "Q":
-            board[x][y] = "*"
-        board = diagonal3(board, x+1, y-1, size)
-    return board
-
-def diagonal4(board, x, y, size):
-    if x >= 0 and y >= 0 and x < size and y < size:
-        if board[x][y] != "Q":
-            board[x][y] = "*"
-        board = diagonal4(board, x-1, y-1, size)
-    return board
-
-def place(board, xx, yy, size):
-    board[xx][yy] = "Q"
-    for x in range(size):
-        if board[x][yy] == "Q":
-            continue
-        else:
-            board[x][yy] = "*"
-    for y in range(size):
-        if board[xx][y] == "Q":
-            continue
-        else:
-            board[xx][y] = "*"
-
-    board = diagonal1(board, xx, yy, size)
-    board = diagonal2(board, xx, yy, size)
-    board = diagonal3(board, xx, yy, size)
-    board = diagonal4(board, xx, yy, size)
-    return board
-
-    
+            pass
 
 
-def show(board, size):
-    for y in range(size):
-        for x in range(size):
-            print (board[x][y],end=" ")
-        print ()
+test = Queens(20)
+test.place(4, 6)
+test.show()
 
-def queen(size):
-    board = make(size)
-    for y in range(size):
-        for x in range(size):
-            if safe(board, x, y):
-                board = place(board, x, y, size)
-    show(board, size)
-
-queen(8)
