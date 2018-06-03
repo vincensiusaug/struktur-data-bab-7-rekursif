@@ -77,7 +77,8 @@ class Maze:
                 if found:
                     break
         
-        a = self.solve(coory, coorx)
+        self.solve(coory, coorx)
+        mmap[coory][coorx] = "P"
 
 
 
