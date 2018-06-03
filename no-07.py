@@ -1,13 +1,16 @@
 class Queens:
     board = []
     queen = "Q"
-    attack = "*"
     empty = " "
-    corner = " "
+    corner = "*"
 
     def __init__(self, size = 8):
         self.size = size
         self.make()
+
+    def settings(self):
+        self.queen = input("Masukan character untuk simbol queen = ")
+        self.empty = input("Masukan character untuk simbol empty = ")
 
     def make(self):
         self.board = [[self.empty for y in range(self.size)] for x in range(self.size)]
@@ -29,62 +32,84 @@ class Queens:
         for i in range(self.size):
             print ("{0:^3}".format(i), end = "")
         print ("{0:^4}".format(self.corner))
-
-    def place(self, x, y):
+    
+    def attacked(self, x, y):
         board = self.board
-        board[x][y] = self.queen
-
         for i in range(self.size):
-            if i != y:
-                board[x][i] = self.attack
-        for i in range(self.size):
-            if i != x:
-                board[i][y] = self.attack
-
-        def lt(x, y):
-            x -= 1
-            y -= 1
-            if x >= 0 and y >= 0 and x < self.size and y < self.size:
-                board[x][y] = self.attack
-                lt(x, y)
-        def rt(x, y):
-            x += 1
-            y -= 1
-            if x >= 0 and y >= 0 and x < self.size and y < self.size:
-                board[x][y] = self.attack
-                rt(x, y)
-        def lb(x, y):
-            x -= 1
-            y += 1
-            if x >= 0 and y >= 0 and x < self.size and y < self.size:
-                board[x][y] = self.attack
-                lb(x, y)
-        def rb(x, y):
-            x += 1
-            y += 1
-            if x >= 0 and y >= 0 and x < self.size and y < self.size:
-                board[x][y] = self.attack
-                rb(x, y)
+            if board [x][i] == self.queen:
+                return True
         
-        lt(x, y)
-        rt(x, y)
-        lb(x, y)
-        rb(x, y)
+        for i in range(self.size):
+            if board [i][y] == self.queen:
+                return True
+        
+        
+        i = x - 1
+        j = y - 1
+        k = 0
+        while k <= min(i, j):
+            if board[i][j] == self.queen:
+                return True
+            else:
+                i -= 1
+                j -= 1
+                k += 1
+        
+        i = x + 1
+        j = y - 1
+        k = 0
+        while k <= min(self.size - i - 1, j):
+            if board[i][j] == self.queen:
+                return True
+            else:
+                i += 1
+                j -= 1
+                k += 1
+        
+        i = x - 1
+        j = y + 1
+        k = 0
+        while k <= min(i, self.size - j - 1):
+            if board[i][j] == self.queen:
+                return True
+            else:
+                i -= 1
+                j += 1
+                k += 1
 
-    def attacked(self, y, x):
-        if self.board[x][y] == self.attack:
-            return True
-        else:
-            return False
+        i = x + 1
+        j = y + 1
+        k = 0
+        while k <= min(self.size - i - 1, self.size - j - 1):
+            if board[i][j] == self.queen:
+                return True
+            else:
+                i += 1
+                j += 1
+                k += 1
 
-    def safe(self, y, x):
-        size = self.size
+        return False
+
+    def safe(self, x = 0):
         board = self.board
-        for y in range(size):
-            pass
+        if x < self.size:
+            for y in range(self.size):
+                if not self.attacked(x, y):
+                    if x == self.size - 1:
+                        board[x][y] = self.queen
+                        return True
+                    else:
+                        board[x][y] = self.queen
+                    if self.safe(x+1):
+                        return True
+                    else:
+                        board[x][y] = self.empty
+            return False
+        return False
 
 
-test = Queens(20)
-test.place(4, 6)
+
+test = Queens()
+test.safe()
 test.show()
 
