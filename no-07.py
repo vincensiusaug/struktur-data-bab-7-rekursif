@@ -1,8 +1,11 @@
+import time
+
 class Queens:
     board = []
     queen = "Q"
     empty = " "
     corner = "*"
+    rec=0
 
     def __init__(self, size = 8):
         self.size = size
@@ -74,7 +77,7 @@ class Queens:
                 return True
             else:
                 i -= 1
-                j += 1
+                j += 1  
                 k += 1
 
         i = x + 1
@@ -91,6 +94,7 @@ class Queens:
         return False
 
     def safe(self, x = 0):
+        self.rec+=1
         board = self.board
         if x < self.size:
             for y in range(self.size):
@@ -108,8 +112,20 @@ class Queens:
         return False
 
 
+testa = 6
+testb = 9
 
-test = Queens()
-test.safe()
-test.show()
+q = []
 
+for i in range(testa,testb+1):
+    q.append(Queens(i))
+
+for i in range(testb-testa):
+    waktu = time.time()
+    q[i].safe()
+    waktu = time.time() - waktu
+    q[i].show()
+    print ("Ukuran board = ",q[i].size)
+    print ("Total rekursif =",q[i].rec)
+    print ("Waktu = ",waktu)
+    print ()
