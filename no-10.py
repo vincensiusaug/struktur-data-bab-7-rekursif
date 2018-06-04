@@ -1,3 +1,30 @@
+class Corrector:
+
+    def inputan(self):
+        data = input("Data berpola x^y^....")
+        return data
+
+    def proses(self,data):
+        data1 = data.split('^')
+        data = 
+        #print (data1)
+
+        def exponensial():
+            
+
+        def angka():
+
+
+        def next(data):
+            return rest(data)
+            
+
+    
+    def main(self):
+        self.inputan()
+        self.proses()
+
+
 def power(x, n):
     if n>1:
         return x * power(x, n-1)
@@ -20,7 +47,8 @@ def program(arr, amount):
     else:
         return arr[amount]
 
-
+data = Corrector()
+data.main()
 example = [3,3,2]
 amount = len(example)-1
 program(example,amount)
